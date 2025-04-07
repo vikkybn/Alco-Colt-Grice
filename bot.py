@@ -234,7 +234,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if "кольт фас деда" in text:
         attack_ded = True
-        await update.message.reply_text("Принято. Сейчас я этому деду устрою срач.")
+        await update.message.reply_text("Принято. Сейчас я этому деду устрою срач. Дед, сосал?")
         return
 
     if "кольт отбой" in text:
