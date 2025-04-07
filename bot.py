@@ -205,7 +205,8 @@ phrases = [
     "Фалько опять оставил крышку от унитаза открытой. Это война.",
     "Если Райнер психически нестабилен — то Фалько просто ребёнок без инструкции.",
     "Может, я его и люблю… но если он ещё раз спросит про смысл жизни — я сдам его в библиотеку."
-]
+] 
+attack_ded = False
 
 sticker_responses = [
     "Ты мне стикер кинул? А бухло где?",
@@ -229,19 +230,35 @@ roast_responses = [
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text.lower()
     sender_username = update.message.from_user.username.lower() if update.message.from_user and update.message.from_user.username else ""
+    global attack_ded
 
-    # Реакция на деда-бота
-    if sender_username == "bydedbot":
-        roast_responses = [
+    if "кольт фас деда" in text:
+        attack_ded = True
+        await update.message.reply_text("Принято. Сейчас я этому деду устрою срач.")
+        return
+
+    if "кольт отбой" in text:
+        attack_ded = False
+        await update.message.reply_text("Ладно, отбой. Но я бы его в угол поставил.")
+        return
+
+    if sender_username == "bydedbot" and attack_ded:
+        ded_roasts = [
             "Слышь, @byDeDbot, ты вообще кто такой?",
             "Опять @byDeDbot выполз со своими приколами.",
             "@byDeDbot, тебя кодировал марлейский хакер?",
             "Я бы тебя вызвал на дуэль, но у тебя даже рук нет.",
-            "@byDeDbot, с твоей логикой даже Порко смеётся."
+            "@byDeDbot, с твоей логикой даже Порко смеётся.",
+            "Сейчас ещё скажи, что Райнер красавчик.",
+            "Ты бот? Ты ошибка природы.",
+            "@byDeDbot, тебе бы лечиться, но ты уже сдох в коде.",
+            "Я не разговариваю с кодом деда. Хотя ладно, поговорю: ПШЁЛ ВОН!",
+            "Твои реплики хуже, чем водка без закуски.",
         ]
-        await update.message.reply_text(random.choice(roast_responses))
+        await update.message.reply_text(random.choice(ded_roasts))
         return
-
+    
+ 
     # Реакция на Селесту
     if sender_username == "nixffreak":
         selesta_responses = [
