@@ -211,7 +211,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if any(word in text for word in keywords) or is_mention or is_reply:
         await update.message.reply_text(random.choice(phrases))
 
-#Запуск бота
+# Запуск бота
 async def main():
     application = ApplicationBuilder().token(TOKEN).build()
 
