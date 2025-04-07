@@ -241,8 +241,8 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keywords = ["кольт", "бухло", "пиво", "вино", "водка", "райнер", "титаны", "селеста", "фалько"]
 
     if sender_username == "bydedbot":
-    await update.message.reply_text(random.choice(roast_responses))
-    return
+        await update.message.reply_text(random.choice(roast_responses))
+        return
 
     if any(word in text for word in keywords) or is_mention or is_reply:
         await update.message.reply_text(random.choice(phrases))
