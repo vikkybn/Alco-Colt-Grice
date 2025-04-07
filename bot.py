@@ -1,5 +1,6 @@
 import logging
 import random
+import asyncio
 from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, MessageHandler, filters
 
@@ -17,7 +18,7 @@ phrases = [
     "Ты кто такой вообще, а?",
     "Ты думаешь, быть кандидатом в Титаны — это круто? Да я только за водку туда полез!",
     "Если бы титаны пили, они бы были добрее."
-      "Ты кто такой вообще, а?",
+    "Ты кто такой вообще, а?",
     "Я ЛЮБЛЮ СЕЛЕСТОЧКУ!",
     "Где бухло?",
     "Опять Райнер? Этот накачанный шкаф?",
@@ -206,49 +207,61 @@ phrases = [
     "Может, я его и люблю… но если он ещё раз спросит про смысл жизни — я сдам его в библиотеку."
 ]
 
-# Обработка сообщений
+sticker_responses = [
+    "Ты мне стикер кинул? А бухло где?",
+    "Стикеры — это не ответ. Налей.",
+    "Я не мультяшка, я Кольт. Флягу давай.",
+    "Если ещё раз кинешь стикер — я тебе в ухо налью.",
+    "Стикеры — для слабаков. Кандидаты в Титаны бухают.",
+    "Ты думаешь, стикером меня проймёшь? Я с Фалько живу.",
+    "Лучше налей, чем мемы слать.",
+    "Стикер? Да я тебе сейчас анекдот расскажу, уши завянут.",
+]
+
+roast_responses = [
+    "Слышь, @byDeDbot, ты вообще кто такой?",
+    "Опять @byDeDbot выполз со своими приколами.",
+    "@byDeDbot, тебя кодировал марлейский Зик?",
+    "Я бы тебя вызвал на дуэль, но у тебя нет рук.",
+    "@byDeDbot, с твоей логикой даже Порко умный.",
+]
+
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text.lower()
     sender_username = update.message.from_user.username.lower() if update.message.from_user.username else ""
 
-    # Срач с другим ботом
-    if sender_username == "bydedbot":
-        roast_responses = [
-            "Слышь, @byDeDbot, ты вообще кто такой?",
-            "Опять @byDeDbot выполз со своими багами.",
-            "@byDeDbot, тебя кодировал марлейский титан.",
-            "Я бы тебя вызвал на дуэль, но у тебя нет интеллекта.",
-            "@byDeDbot, с твоей логикой даже Порко кажется умным."
-        ]
-        await update.message.reply_text(random.choice(roast_responses))
-        await update.message.reply_text(response)
-        return
-    is_reply = update.message.reply_to_message and update.message.reply_to_message.from_user.username == context.bot.username
+    is_reply = (
+        update.message.reply_to_message
+        and update.message.reply_to_message.from_user.username
+        and update.message.reply_to_message.from_user.username.lower() == context.bot.username.lower()
+    )
+
     is_mention = f"@{context.bot.username.lower()}" in text
+
     keywords = ["кольт", "бухло", "пиво", "вино", "водка", "райнер", "титаны", "селеста", "фалько"]
 
+    if sender_username == "bydedbot":
+        await update.message.reply_text(random.choice(roast_responses))
+        return
+
     if any(word in text for word in keywords) or is_mention or is_reply:
-        response = random.choice(phrases)
-        await update.message.reply_text(response)
+        await update.message.reply_text(random.choice(phrases))
 
-# Запуск бота
+async def handle_sticker(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(random.choice(sticker_responses))
+
 async def main():
-    application = ApplicationBuilder().token(TOKEN).build()
+    app = ApplicationBuilder().token(TOKEN).build()
+    await app.bot.delete_webhook(drop_pending_updates=True)
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    app.add_handler(MessageHandler(filters.Sticker.ALL, handle_sticker))
 
-    # Удалим старый webhook (иначе конфликт)
-    await application.bot.delete_webhook(drop_pending_updates=True)
+    await app.initialize()
+    await app.start()
+    await app.updater.start_polling()
 
-    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-
-    await application.initialize()
-    await application.start()
-    await application.updater.start_polling()
-
-    # Держим процесс живым на Render
-    import asyncio
     while True:
         await asyncio.sleep(3600)
 
 if __name__ == "__main__":
-    import asyncio
     asyncio.run(main())
