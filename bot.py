@@ -1,19 +1,23 @@
-
 import logging
 import random
 from telegram import Update
-from telegram.constants import ChatAction
 from telegram.ext import ApplicationBuilder, ContextTypes, MessageHandler, filters
 
 TOKEN = "7776840247:AAFIlJhf1Hvs16z5namJG_staKPO8rQJa7w"
 
 logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     level=logging.INFO
 )
 
-# Огромное количество разнообразных фраз
+# Фразы
 phrases = [
+    "Ты кто такой вообще, а?",
+    "Я ЛЮБЛЮ СЕЛЕСТОЧКУ!",
+    "Где бухло?",
+    "Опять Райнер? Этот накачанный шкаф?",
+    "Пить вредно. Не пить — ещё вреднее.",
+    "Если ты не Селеста — иди в ж..."
     "Ты кто такой вообще, а?",
     "Я ЛЮБЛЮ СЕЛЕСТОЧКУ!",
     "Эй, где бухло?",
@@ -197,22 +201,22 @@ phrases = [
 "Может, я его и люблю… но если он ещё раз спросит про смысл жизни — я сдам его в библиотеку."
 ]
 
-# Функция обработки сообщений
+# Ответ по ключевым словам, упоминанию или ответу
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text.lower()
     is_reply = update.message.reply_to_message and update.message.reply_to_message.from_user.username == context.bot.username
     is_mention = f"@{context.bot.username.lower()}" in text
-    keywords = ["кольт", "бухло", "пиво", "вино", "водка", "райнер", "титаны", "селеста", "фалько"]
+    keywords = ["кольт", "бухло", "пиво", "вино", "водка", "райнер", "селеста"]
 
     if any(word in text for word in keywords) or is_mention or is_reply:
-        response = random.choice(phrases)
-        await update.message.reply_text(response)
+        await update.message.reply_text(random.choice(phrases))
 
 # Запуск бота
 async def main():
     app = ApplicationBuilder().token(TOKEN).build()
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-    await app.initialize()
-    await app.start()
-    await app.updater.start_polling()
-    await app.updater.idle()
+    await app.run_polling()
+
+if __name__ == "__main__":
+    import asyncio
+    asyncio.run(main())
