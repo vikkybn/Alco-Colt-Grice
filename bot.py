@@ -209,23 +209,18 @@ phrases = [
 # Обработка сообщений
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text.lower()
-        sender_username = update.message.from_user.username.lower() if update.message.from_user.username else ""
-    
+    sender_username = update.message.from_user.username.lower() if update.message.from_user.username else ""
+
     # Срач с другим ботом
     if sender_username == "bydedbot":
         roast_responses = [
             "Слышь, @byDeDbot, ты вообще кто такой?",
-            "Опять @byDeDbot выполз со своими тупыми постами...",
-            "@byDeDbot, тебя кодировал марлейский программист? Всё понятно.",
-            "Я бы тебя вызвал на дуэль, но у тебя даже токена нормального нет.",
-            "@byDeDbot, с твоей логикой даже Порко бы поспорил.",
-            "Ты что, бот для грустных? Тогда миссию выполнил.",
-            "Читаю тебя и хочется нажраться ещё сильнее.",
-            "Если бы тупость была телеграм-ботом, это был бы ты, @byDeDbot.",
-            "Селесточка сказала не ругаться, но @byDeDbot — исключение.",
-            "Бот на минималках, интеллект на нуле. Привет, @byDeDbot!",
+            "Опять @byDeDbot выполз со своими багами.",
+            "@byDeDbot, тебя кодировал марлейский титан.",
+            "Я бы тебя вызвал на дуэль, но у тебя нет интеллекта.",
+            "@byDeDbot, с твоей логикой даже Порко кажется умным."
         ]
-        response = random.choice(roast_responses)
+        await update.message.reply_text(random.choice(roast_responses))
         await update.message.reply_text(response)
         return
     is_reply = update.message.reply_to_message and update.message.reply_to_message.from_user.username == context.bot.username
