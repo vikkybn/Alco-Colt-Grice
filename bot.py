@@ -234,7 +234,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if "кольт фас деда" in text:
         attack_ded = True
-        await update.message.reply_text("Принято. Сейчас я этому деду устрою срач. Дед, сосал?")
+        await update.message.reply_text("@byDeDbot, тебе бы лечиться, но ты уже итак почти сдох")
         return
 
     if "кольт отбой" in text:
@@ -279,7 +279,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     is_mention = f"@{context.bot.username.lower()}" in text
 
-    keywords = ["кольт", "бухло", "пиво", "вино", "водка", "райнер", "титаны", "селеста", "фалько"]
+    keywords = ["кольт", "бухло", "пиво", "вино", "водка", "райнер", "титаны", "селеста", "алкаш"]
 
     if sender_username == "bydedbot":
         await update.message.reply_text(random.choice(roast_responses))
