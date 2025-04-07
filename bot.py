@@ -214,7 +214,11 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 #Запуск бота
 async def main():
     application = ApplicationBuilder().token(TOKEN).build()
-    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+
+# Удаляем старый webhook, чтобы избежать конфликта
+await application.bot.delete_webhook(drop_pending_updates=True)
+
+application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     
     await application.initialize()
     await application.start()
