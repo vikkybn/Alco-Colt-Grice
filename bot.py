@@ -228,7 +228,31 @@ roast_responses = [
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text.lower()
-    sender_username = update.message.from_user.username.lower() if update.message.from_user.username else ""
+    sender_username = update.message.from_user.username.lower() if update.message.from_user and update.message.from_user.username else ""
+
+    # Реакция на деда-бота
+    if sender_username == "bydedbot":
+        roast_responses = [
+            "Слышь, @byDeDbot, ты вообще кто такой?",
+            "Опять @byDeDbot выполз со своими приколами.",
+            "@byDeDbot, тебя кодировал марлейский хакер?",
+            "Я бы тебя вызвал на дуэль, но у тебя даже рук нет.",
+            "@byDeDbot, с твоей логикой даже Порко смеётся."
+        ]
+        await update.message.reply_text(random.choice(roast_responses))
+        return
+
+    # Реакция на Селесту
+    if sender_username == "nixffreak":
+        selesta_responses = [
+            "Селесточка, ты сегодня такая горячая — я чуть флягу не уронил.",
+            "Ты — мой титан любви, Селеста. Без тебя я просто рюмка без вина.",
+            "Если бы ты была титаном — я бы сдался сразу.",
+            "Селеста, налей мне... любви. И немного вина.",
+            "Я бы ради тебя даже похмелье пережил. Ну, почти."
+        ]
+        await update.message.reply_text(random.choice(selesta_responses))
+        return
 
     is_reply = (
         update.message.reply_to_message
