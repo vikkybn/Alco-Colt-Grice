@@ -211,11 +211,19 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if any(word in text for word in keywords) or is_mention or is_reply:
         await update.message.reply_text(random.choice(phrases))
 
-# Запуск бота
+#Запуск бота
 async def main():
-    app = ApplicationBuilder().token(TOKEN).build()
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-    await app.run_polling()
+    application = ApplicationBuilder().token(TOKEN).build()
+    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    
+    await application.initialize()
+    await application.start()
+    await application.updater.start_polling()
+    
+    # Держим цикл живым на Render
+    import asyncio
+    while True:
+        await asyncio.sleep(3600)
 
 if __name__ == "__main__":
     import asyncio
