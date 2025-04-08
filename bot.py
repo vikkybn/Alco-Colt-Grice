@@ -208,6 +208,9 @@ phrases = [
     "Может, я его и люблю… но если он ещё раз спросит про смысл жизни — я сдам его в библиотеку."
 ] 
 stickers = [
+    "CAACAgIAAxkBAAEOQ6xn9YyrbSDWhahFvd-0pQWwaxZnMgAC5FcAAlj3iEkhYWxbS8grCTYE",
+    "CAACAgQAAxkBAAEOQ65n9YzjLVRv82TAXvxc4FJk4LVudwACShgAAqnEaVM6oLnm7NZM1jYE",
+    "CAACAgQAAxkBAAEOQ7Bn9YzreSxtuA7TJ1NaT29NvT7DSwACBxkAApc_aVM40pjXpmo5ozYE",
     "CAACAgQAAxkBAAEOQm9n9NJluPFBxul_9VQhCaWsRDvpdwAC4BkAAlHJIFPHQLArgqquNzYE",
     "CAACAgQAAxkBAAEOQnFn9NJy7WjpiXqYAYlY0emlcIy-XgACdRYAAsgnIFMCQjA96LG5qDYE",
     "CAACAgQAAxkBAAEOQnNn9NJ2lifRZvQynw7sdu7mHTlqdwACPhQAAqcNIVPRncVItHDXtDYE",
