@@ -206,6 +206,16 @@ phrases = [
     "Если Райнер психически нестабилен — то Фалько просто ребёнок без инструкции.",
     "Может, я его и люблю… но если он ещё раз спросит про смысл жизни — я сдам его в библиотеку."
 ] 
+stickers = [
+    "CAACAgQAAxkBAAEOQm9n9NJluPFBxul_9VQhCaWsRDvpdwAC4BkAAlHJIFPHQLArgqquNzYE",
+    "CAACAgQAAxkBAAEOQnFn9NJy7WjpiXqYAYlY0emlcIy-XgACdRYAAsgnIFMCQjA96LG5qDYE",
+    "CAACAgQAAxkBAAEOQnNn9NJ2lifRZvQynw7sdu7mHTlqdwACPhQAAqcNIVPRncVItHDXtDYE",
+    "CAACAgQAAxkBAAEOQnVn9NJ6wAf-Zo2M6VkaOyX5tT1a0wACbhYAAm_iIFOg9Dt9o-DuoDYE",
+    "CAACAgQAAxkBAAEOQndn9NJ-qTJwXbUZjBmR7jub0_3uoAACiRQAAgTUIVPcCcVjdnSwMTYE",
+    "CAACAgQAAxkBAAEOQnln9NKCIQrKxIiodWOnn8agDs0cdAAC_igAApv-OVNggPRqiUjbBDYE",
+    "CAACAgQAAxkBAAEOQoxn9Ntp6QjKwis0OcXIbVA8cCt0rgACdxYAApGoOVOsFFQ_taH9KTYE",
+    "CAACAgQAAxkBAAEOQo1n9NtpWa-bmyfqArkdUkk-eRHBMQACKh0AAgzfMVPUvVwQedXAAAE2BA"
+]
 attack_ded = False
 
 sticker_responses = [
