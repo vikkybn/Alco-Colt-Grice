@@ -348,6 +348,9 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if any(word in text for word in keywords) or is_mention or is_reply:
         await update.message.reply_text(random.choice(phrases))
+            # 20% шанс отправить стикер
+    if random.random() < 0.2:
+        await update.message.reply_sticker(random.choice(stickers))
 
 async def handle_sticker(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(random.choice(sticker_responses))
